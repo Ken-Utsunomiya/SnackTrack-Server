@@ -1,12 +1,10 @@
 FROM node:14.15.4-alpine3.12
 
-LABEL version="1.0"
-LABEL description="This is Dockerfile for the backend of SnackTrack app."
+LABEL version="1.1"
+LABEL description="This is prod Dockerfile for the backend of SnackTrack app."
 
-ENV APP_HOME /SnackTrack-server
-ENV PATH ${APP_HOME}/node_modules/.bin:$PATH
+ENV APP_HOME /app
 ENV PORT 5050
-ENV NODE_ENV dev
 
 WORKDIR ${APP_HOME}
 
@@ -18,4 +16,8 @@ RUN apk update \
     && yarn install \
     && yarn set version 1.22.10
 
+COPY . .
+
 EXPOSE ${PORT}
+
+CMD [ "yarn", "run", "start" ]

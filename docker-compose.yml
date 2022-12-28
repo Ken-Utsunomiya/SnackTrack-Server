@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  server:
+    image: "kenutsunomiya/snacktrack-server:latest"
+    mem_limit: 128m
+    hostname: server
+    environment:
+      - PORT=$PORT
+      - IP=$IP
+      - DB_DIALECT=$DB_DIALECT
+      - DB_PROTOCOL=$DB_PROTOCOL
+      - DB_USERID=$DB_USERID
+      - DB_NAME=$DB_NAME
+      - DB_HOST=$DB_HOST
+      - DB_PASSWORD=$DB_PASSWORD
+      - ACCESS_TOKEN_SECRET=$ACCESS_TOKEN_SECRET
+      - CLIENT=$CLIENT
+      
