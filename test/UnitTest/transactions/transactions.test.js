@@ -7,8 +7,8 @@ const Users = db.users
 const Transactions = db.transactions
 const instance = db.dbInstance
 
-describe ('GET /:user_id/transactions', () => {
-  beforeAll (async () => {
+describe('GET /:user_id/transactions', () => {
+  beforeAll(async () => {
     jest.spyOn(Users, 'findByPk').mockImplementation((user_id) => {
       if (user_id === 1) {
         return Promise.resolve({ 'user_id': user_id })
@@ -47,11 +47,11 @@ describe ('GET /:user_id/transactions', () => {
     })
   })
 
-  afterAll (async () => jest.clearAllMocks())
+  afterAll(async () => jest.clearAllMocks())
 
-  it ('should reject with 404 - user_id not found', async () => {
+  it('should reject with 404 - user_id not found', async () => {
     const mockRequest = () => {
-      return { 'params' : { 'user_id': 999 } }
+      return { 'params': { 'user_id': 999 } }
     }
     const mockResponse = () => {
       const res = {}
@@ -67,9 +67,9 @@ describe ('GET /:user_id/transactions', () => {
     expect(res.json).toHaveBeenCalledWith(expected)
   })
 
-  it ('should get user transactions', async () => {
+  it('should get user transactions', async () => {
     const mockRequest = () => {
-      return { 'params' : { 'user_id': 1 } }
+      return { 'params': { 'user_id': 1 } }
     }
     const mockResponse = () => {
       const res = {}
@@ -112,8 +112,8 @@ describe ('GET /:user_id/transactions', () => {
   })
 })
 
-describe ('GET /:user_id/transactions/:transaction_id', () => {
-  beforeAll (async () => {
+describe('GET /:user_id/transactions/:transaction_id', () => {
+  beforeAll(async () => {
     jest.spyOn(Transactions, 'findOne').mockImplementation((condition) => {
       if (condition.where.transaction_id === 1) {
         return Promise.resolve({
@@ -132,11 +132,11 @@ describe ('GET /:user_id/transactions/:transaction_id', () => {
     })
   })
 
-  afterAll (async () => jest.clearAllMocks())
+  afterAll(async () => jest.clearAllMocks())
 
-  it ('should reject with 404 - transaction_id not found', async () => {
+  it('should reject with 404 - transaction_id not found', async () => {
     const mockRequest = () => {
-      return { 'params' : { 'user_id': 1, 'transaction_id': 999 } }
+      return { 'params': { 'user_id': 1, 'transaction_id': 999 } }
     }
     const mockResponse = () => {
       const res = {}
@@ -152,9 +152,9 @@ describe ('GET /:user_id/transactions/:transaction_id', () => {
     expect(res.json).toHaveBeenCalledWith(expected)
   })
 
-  it ('should get a transaction of the user', async () => {
+  it('should get a transaction of the user', async () => {
     const mockRequest = () => {
-      return { 'params' : { 'user_id': 1, 'transaction_id': 1 } }
+      return { 'params': { 'user_id': 1, 'transaction_id': 1 } }
     }
     const mockResponse = () => {
       const res = {}
@@ -180,8 +180,8 @@ describe ('GET /:user_id/transactions/:transaction_id', () => {
   })
 })
 
-describe ('GET /users/:user_id/pendingOrders', () => {
-  beforeAll (async () => {
+describe('GET /users/:user_id/pendingOrders', () => {
+  beforeAll(async () => {
     jest.spyOn(Users, 'findByPk').mockImplementation((user_id) => {
       if (user_id === 1) {
         return Promise.resolve({ 'user_id': user_id })
@@ -220,11 +220,11 @@ describe ('GET /users/:user_id/pendingOrders', () => {
     })
   })
 
-  afterAll (async () => jest.clearAllMocks())
+  afterAll(async () => jest.clearAllMocks())
 
-  it ('should reject with 404 - user_id not found', async () => {
+  it('should reject with 404 - user_id not found', async () => {
     const mockRequest = () => {
-      return { 'params' : { 'user_id': 999 } }
+      return { 'params': { 'user_id': 999 } }
     }
     const mockResponse = () => {
       const res = {}
@@ -240,9 +240,9 @@ describe ('GET /users/:user_id/pendingOrders', () => {
     expect(res.json).toHaveBeenCalledWith(expected)
   })
 
-  it ('should get user pendingOrders', async () => {
+  it('should get user pendingOrders', async () => {
     const mockRequest = () => {
-      return { 'params' : { 'user_id': 1 } }
+      return { 'params': { 'user_id': 1 } }
     }
     const mockResponse = () => {
       const res = {}
@@ -285,7 +285,7 @@ describe ('GET /users/:user_id/pendingOrders', () => {
   })
 })
 
-describe ('GET /transactions (GET popularSnacks)', () => {
+describe('GET /transactions (GET popularSnacks)', () => {
   const convertToMapArray = (snacks) => {
     const result = []
     for (const snack of snacks) {
@@ -297,16 +297,16 @@ describe ('GET /transactions (GET popularSnacks)', () => {
     return result
   }
 
-  beforeAll (async () => {
+  beforeAll(async () => {
     jest.spyOn(Transactions, 'findAll').mockImplementation(() => {
       const result = convertToMapArray(popularSnacks)
       return Promise.resolve(result)
     })
   })
 
-  afterAll (async () => jest.clearAllMocks())
+  afterAll(async () => jest.clearAllMocks())
 
-  it ('should reject with 400 - start_date is null', async () => {
+  it('should reject with 400 - start_date is null', async () => {
     const mockRequest = () => {
       const req = {
         'query': {
@@ -329,10 +329,10 @@ describe ('GET /transactions (GET popularSnacks)', () => {
     const expected = { error: 'Bad Request: invalid query' }
     await getPopularSnacks(req, res)
     expect(res.status).toHaveBeenCalledWith(400)
-    expect(res.json).toHaveBeenCalledWith(expected) 
+    expect(res.json).toHaveBeenCalledWith(expected)
   })
 
-  it ('should reject with 400 - end_date is null', async () => {
+  it('should reject with 400 - end_date is null', async () => {
     const mockRequest = () => {
       const req = {
         'query': {
@@ -355,10 +355,10 @@ describe ('GET /transactions (GET popularSnacks)', () => {
     const expected = { error: 'Bad Request: invalid query' }
     await getPopularSnacks(req, res)
     expect(res.status).toHaveBeenCalledWith(400)
-    expect(res.json).toHaveBeenCalledWith(expected) 
+    expect(res.json).toHaveBeenCalledWith(expected)
   })
 
-  it ('should reject with 400 - transaction_type_id is null', async () => {
+  it('should reject with 400 - transaction_type_id is null', async () => {
     const mockRequest = () => {
       const req = {
         'query': {
@@ -381,10 +381,10 @@ describe ('GET /transactions (GET popularSnacks)', () => {
     const expected = { error: 'Bad Request: invalid query' }
     await getPopularSnacks(req, res)
     expect(res.status).toHaveBeenCalledWith(400)
-    expect(res.json).toHaveBeenCalledWith(expected) 
+    expect(res.json).toHaveBeenCalledWith(expected)
   })
 
-  it ('should reject with 400 - limit is null', async () => {
+  it('should reject with 400 - limit is null', async () => {
     const mockRequest = () => {
       const req = {
         'query': {
@@ -407,60 +407,13 @@ describe ('GET /transactions (GET popularSnacks)', () => {
     const expected = { error: 'Bad Request: invalid query' }
     await getPopularSnacks(req, res)
     expect(res.status).toHaveBeenCalledWith(400)
-    expect(res.json).toHaveBeenCalledWith(expected) 
-  })
-
-  it ('should get popular snacks', async () => {
-    const mockRequest = () => {
-      const req = {
-        'query': {
-          'start_date': '2021-03-11',
-          'end_date': '2021-03-22',
-          'transaction_type_id': 1,
-          'limit': 5
-        }
-      }
-      return req
-    }
-    const mockResponse = () => {
-      const res = {}
-      res.status = jest.fn().mockReturnValue(res)
-      res.json = jest.fn().mockReturnValue(res)
-      return res
-    }
-    const req = mockRequest()
-    const res = mockResponse()
-    const expected = convertToMapArray([
-      {
-        'snack_name': 'The Marshmallow that Bob Left On The Table Last Week ',
-        'total_quantity': '1118'
-      },
-      {
-        'snack_name': 'KitKat',
-        'total_quantity': '1021'
-      },
-      {
-        'snack_name': "Lay's",
-        'total_quantity': '1000'
-      },
-      {
-        'snack_name': 'Tomato',
-        'total_quantity': '997'
-      },
-      {
-        'snack_name': "M&M's",
-        'total_quantity': '614'
-      }
-    ])
-    await getPopularSnacks(req, res)
-    expect(res.status).toHaveBeenCalledWith(200)
     expect(res.json).toHaveBeenCalledWith(expected)
   })
 })
 
-describe ('POST /transactions', () => {
+describe('POST /transactions', () => {
   let req, res
-  beforeAll (async () => {
+  beforeAll(async () => {
     jest.spyOn(instance, 'transaction').mockImplementation(() => {
       const transaction = req.body
       const {
@@ -489,9 +442,9 @@ describe ('POST /transactions', () => {
     })
   })
 
-  afterAll (async () => jest.clearAllMocks())
+  afterAll(async () => jest.clearAllMocks())
 
-  it ('should reject with 404 - user_id not found', async () => {
+  it('should reject with 404 - user_id not found', async () => {
     const mockRequest = () => {
       const req = {
         'body': {
@@ -518,7 +471,7 @@ describe ('POST /transactions', () => {
     expect(res.json).toHaveBeenCalledWith(expected)
   })
 
-  it ('should reject with 404 - snack_id not found', async () => {
+  it('should reject with 404 - snack_id not found', async () => {
     const mockRequest = () => {
       const req = {
         'body': {
@@ -545,7 +498,7 @@ describe ('POST /transactions', () => {
     expect(res.json).toHaveBeenCalledWith(expected)
   })
 
-  it ('should reject with 400 - transaction_amount is not positive', async () => {
+  it('should reject with 400 - transaction_amount is not positive', async () => {
     const mockRequest = () => {
       const req = {
         'body': {
@@ -572,7 +525,7 @@ describe ('POST /transactions', () => {
     expect(res.json).toHaveBeenCalledWith(expected)
   })
 
-  it ('should reject with 400 - quantity is not positive', async () => {
+  it('should reject with 400 - quantity is not positive', async () => {
     const mockRequest = () => {
       const req = {
         'body': {
@@ -599,7 +552,7 @@ describe ('POST /transactions', () => {
     expect(res.json).toHaveBeenCalledWith(expected)
   })
 
-  it ('should create a new transaction', async () => {
+  it('should create a new transaction', async () => {
     const mockRequest = () => {
       const req = {
         'body': {
@@ -636,9 +589,9 @@ describe ('POST /transactions', () => {
   })
 })
 
-describe ('PUT /transactions/:transaction_id', () => {
+describe('PUT /transactions/:transaction_id', () => {
   let req, res, transaction
-  beforeAll (async () => {
+  beforeAll(async () => {
     const PURCHASE = 1
     const CANCEL = 2
     const PENDING = 3
@@ -658,8 +611,8 @@ describe ('PUT /transactions/:transaction_id', () => {
         if (payment_id) throw Error('Bad Request: This transaction has been purchased.')
       }
       const allowed_condition = (from === PURCHASE && to === CANCEL)
-                             || (from === PENDING && to === PURCHASE)
-                             || (from === PENDING && to === PENDING_CANCEL)
+        || (from === PENDING && to === PURCHASE)
+        || (from === PENDING && to === PENDING_CANCEL)
       if (from === to) {
         return Promise.resolve(transaction)
       } else if (allowed_condition) {
@@ -672,9 +625,9 @@ describe ('PUT /transactions/:transaction_id', () => {
     })
   })
 
-  afterAll (async () => jest.clearAllMocks())
+  afterAll(async () => jest.clearAllMocks())
 
-  it ('should reject with 404 - transaction_id not found', async () => {
+  it('should reject with 404 - transaction_id not found', async () => {
     const mockRequest = () => {
       const req = {
         'params': {
@@ -714,7 +667,7 @@ describe ('PUT /transactions/:transaction_id', () => {
     expect(res.json).toHaveBeenCalledWith(expected)
   })
 
-  it ('should reject with 404 - snack not found', async () => {
+  it('should reject with 404 - snack not found', async () => {
     const mockRequest = () => {
       const req = {
         'params': {
@@ -754,7 +707,7 @@ describe ('PUT /transactions/:transaction_id', () => {
     expect(res.json).toHaveBeenCalledWith(expected)
   })
 
-  it ('should reject with 400 - payment_id is not null', async () => {
+  it('should reject with 400 - payment_id is not null', async () => {
     const mockRequest = () => {
       const req = {
         'params': {
@@ -794,7 +747,7 @@ describe ('PUT /transactions/:transaction_id', () => {
     expect(res.json).toHaveBeenCalledWith(expected)
   })
 
-  it ('should reject with 400 - unallowed update: PURCHASE -> PENDING', async () => {
+  it('should reject with 400 - unallowed update: PURCHASE -> PENDING', async () => {
     const mockRequest = () => {
       const req = {
         'params': {
@@ -834,7 +787,7 @@ describe ('PUT /transactions/:transaction_id', () => {
     expect(res.json).toHaveBeenCalledWith(expected)
   })
 
-  it ('should reject with 400 - unallowed update: PURCHASE -> PENDING_CANCEL', async () => {
+  it('should reject with 400 - unallowed update: PURCHASE -> PENDING_CANCEL', async () => {
     const mockRequest = () => {
       const req = {
         'params': {
@@ -874,7 +827,7 @@ describe ('PUT /transactions/:transaction_id', () => {
     expect(res.json).toHaveBeenCalledWith(expected)
   })
 
-  it ('should reject with 400 - unallowed update: CANCEL -> PURCHASE', async () => {
+  it('should reject with 400 - unallowed update: CANCEL -> PURCHASE', async () => {
     const mockRequest = () => {
       const req = {
         'params': {
@@ -914,7 +867,7 @@ describe ('PUT /transactions/:transaction_id', () => {
     expect(res.json).toHaveBeenCalledWith(expected)
   })
 
-  it ('should reject with 400 - unallowed update: CANCEL -> PENDING', async () => {
+  it('should reject with 400 - unallowed update: CANCEL -> PENDING', async () => {
     const mockRequest = () => {
       const req = {
         'params': {
@@ -954,7 +907,7 @@ describe ('PUT /transactions/:transaction_id', () => {
     expect(res.json).toHaveBeenCalledWith(expected)
   })
 
-  it ('should reject with 400 - unallowed update: CANCEL -> PENDING_CANCEL', async () => {
+  it('should reject with 400 - unallowed update: CANCEL -> PENDING_CANCEL', async () => {
     const mockRequest = () => {
       const req = {
         'params': {
@@ -994,7 +947,7 @@ describe ('PUT /transactions/:transaction_id', () => {
     expect(res.json).toHaveBeenCalledWith(expected)
   })
 
-  it ('should reject with 400 - unallowed update: PENDING -> CANCEL', async () => {
+  it('should reject with 400 - unallowed update: PENDING -> CANCEL', async () => {
     const mockRequest = () => {
       const req = {
         'params': {
@@ -1034,7 +987,7 @@ describe ('PUT /transactions/:transaction_id', () => {
     expect(res.json).toHaveBeenCalledWith(expected)
   })
 
-  it ('should reject with 400 - unallowed update: PENDING_CANCEL -> PURCHASE', async () => {
+  it('should reject with 400 - unallowed update: PENDING_CANCEL -> PURCHASE', async () => {
     const mockRequest = () => {
       const req = {
         'params': {
@@ -1074,7 +1027,7 @@ describe ('PUT /transactions/:transaction_id', () => {
     expect(res.json).toHaveBeenCalledWith(expected)
   })
 
-  it ('should reject with 400 - unallowed update: PENDING_CANCEL -> CANCEL', async () => {
+  it('should reject with 400 - unallowed update: PENDING_CANCEL -> CANCEL', async () => {
     const mockRequest = () => {
       const req = {
         'params': {
@@ -1114,7 +1067,7 @@ describe ('PUT /transactions/:transaction_id', () => {
     expect(res.json).toHaveBeenCalledWith(expected)
   })
 
-  it ('should reject with 400 - unallowed update: PENDING_CANCEL -> PENDING', async () => {
+  it('should reject with 400 - unallowed update: PENDING_CANCEL -> PENDING', async () => {
     const mockRequest = () => {
       const req = {
         'params': {
@@ -1154,7 +1107,7 @@ describe ('PUT /transactions/:transaction_id', () => {
     expect(res.json).toHaveBeenCalledWith(expected)
   })
 
-  it ('should update transaction information - PURCHASE -> CANCEL', async () => {
+  it('should update transaction information - PURCHASE -> CANCEL', async () => {
     const mockRequest = () => {
       const req = {
         'params': {
@@ -1203,7 +1156,7 @@ describe ('PUT /transactions/:transaction_id', () => {
     expect(res.json).toHaveBeenCalledWith(expected)
   })
 
-  it ('should update transaction information - PENDING -> PURCHASE', async () => {
+  it('should update transaction information - PENDING -> PURCHASE', async () => {
     const mockRequest = () => {
       const req = {
         'params': {
@@ -1252,7 +1205,7 @@ describe ('PUT /transactions/:transaction_id', () => {
     expect(res.json).toHaveBeenCalledWith(expected)
   })
 
-  it ('should update transaction information - PENDING -> PENDING_CANCEL', async () => {
+  it('should update transaction information - PENDING -> PENDING_CANCEL', async () => {
     const mockRequest = () => {
       const req = {
         'params': {
@@ -1301,7 +1254,7 @@ describe ('PUT /transactions/:transaction_id', () => {
     expect(res.json).toHaveBeenCalledWith(expected)
   })
 
-  it ('should be valid request but no updates - from == to', async () => {
+  it('should be valid request but no updates - from == to', async () => {
     const mockRequest = () => {
       const req = {
         'params': {
