@@ -5,6 +5,7 @@ LABEL description="This is prod Dockerfile for the backend of SnackTrack app."
 
 ENV APP_HOME /app
 ENV PORT 8081
+ENV PATH /app/node_modules/.bin:$PATH
 
 WORKDIR ${APP_HOME}
 
