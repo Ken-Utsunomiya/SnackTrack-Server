@@ -3,7 +3,6 @@ version: '3'
 services:
   server:
     image: "kenutsunomiya/snacktrack-server:latest"
-    mem_limit: 128m
     hostname: server
     environment:
       - PORT=$PORT
