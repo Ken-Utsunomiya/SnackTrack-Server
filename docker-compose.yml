@@ -5,11 +5,10 @@ services:
     image: "kenutsunomiya/snacktrack-server:latest"
     hostname: server
     ports:
-      - "5000:5000"
+      - "80:5000"
     mem_limit: 128m
     environment:
       - PORT=$PORT
-      - IP=$IP
       - DB_DIALECT=$DB_DIALECT
       - DB_PROTOCOL=$DB_PROTOCOL
       - DB_USERID=$DB_USERID
